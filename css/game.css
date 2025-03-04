@@ -1,0 +1,531 @@
+/* Загрузка шрифта Rex Bold */
+@font-face {
+    font-family: 'RexBold'; /* Название шрифта, которое будет использоваться в CSS */
+    src: url('../fonts/RexBold.woff2') format('woff2'), /* Поддержка современных браузеров */
+         url('../fonts/RexBold.woff') format('woff');   /* Поддержка старых браузеров */
+    font-weight: normal; /* Вес шрифта (normal = 400) */
+    font-style: normal;  /* Стиль шрифта (normal = обычный) */
+}
+
+@font-face {
+    font-family: 'Tilda'; /* Название шрифта, которое будет использоваться в CSS */
+    src: url('../fonts/TildaSans-Regular.woff2') format('woff2'), /* Поддержка современных браузеров */
+         url('../fonts/TildaSans-Regular.woff') format('woff');   /* Поддержка старых браузеров */
+    font-weight: normal; /* Вес шрифта (normal = 400) */
+    font-style: normal;  /* Стиль шрифта (normal = обычный) */
+}
+
+
+        
+/* Скрываем pop-up по умолчанию */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Окно pop-up */
+.popup-content {
+    background-image: url(../images/backgroundpaper.png);
+    background-position: center center;
+    background-size: cover;
+    padding: 40px;
+    border-radius: 10px;
+    width: 70vw;
+    height: 80vh;  /* Фиксированная высота */
+    text-align: left;
+    position: relative;
+    overflow-y: auto;  /* Добавляем вертикальный скролл */
+}
+
+.popup-content h2{
+    font-family: 'RexBold',sans-serif;
+    font-size: 32px;
+    color: #748B43;
+    margin-bottom: 10px;
+}
+
+.popup-content p{
+    font-family: 'RexBold',sans-serif;
+    font-size: 18px;
+    color: #000000;
+    margin-bottom: 10px;
+    font-family: 'Tilda', sans-serif;
+}
+
+
+/* Кнопка закрытия */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 36px;
+    font-weight: bolder;
+    cursor: pointer;
+    color: #748B43;
+}
+
+/* Стилизация скроллбара (для WebKit-браузеров) */
+.popup-content::-webkit-scrollbar {
+    
+    width: 8px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #748B43;
+    border-radius: 4px;
+}
+
+.popup-content::-webkit-scrollbar-track {
+    background: #748b4341;
+}
+
+
+.popup-room {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Скрыт по умолчанию */
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-room-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.popup-room-content p {
+    font-size: 18px;
+}
+
+.popup-room-content span {
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+/* Сброс стандартных стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Отключаем прокрутку страницы */
+    background-image: url(../images/fone_candies.png);
+    background-size: cover;
+    background-repeat: repeat;
+}
+
+/* Сообщение для маленьких экранов */
+.message-small-screen {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #EFE096;
+    font-family: 'RexBold', sans-serif;
+    background-color: #AF5B2D;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Медиа-запрос для экранов меньше 1100px */
+@media (max-width: 1024px) {
+    .parent-container,
+    .child-container,
+    .zone,
+    .player,
+    .zona, #reset_theft {
+        display: none; /* Скрываем родительский и дочерний контейнеры */
+    }
+
+    .message-small-screen {
+        display: block; /* Показываем сообщение */
+    }
+}
+
+
+/* Родительский контейнер */
+.parent-container {
+    width: 90vw; /* Занимает всю ширину viewport */
+    height: 90vh; /* Занимает всю высоту viewport */
+    margin: auto;
+    background-color: rgba(244, 244, 244, 0);
+    position: fixed; /* Фиксированное позиционирование */
+    top: 50%; /* Центрирование по вертикали */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translate(-50%, -50%); /* Точное центрирование */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     /*border: 5px solid salmon;*/
+}
+
+.zona_players,.zona_reset_theft,.zona_statys_game {
+    width: 30vw;
+    height: 90vh;
+     /*border: 5px solid skyblue;*/
+    display: flex;
+    flex-direction: column; /* Располагает элементы в колонку */
+    justify-content: space-between; /* Начинаем выравнивание сверху */
+    align-items: stretch; /* Растягиваем по ширине контейнера */
+    margin: 0;
+}
+
+.player, .status_game, .my_all_cards {
+    /*border: 5px solid violet;*/
+    width: 100%;
+    box-sizing: border-box; /* Учитываем бордер в ширине элемента */
+}
+
+.player h3, .status_game h3, .my_all_cards h3 {
+    font-family: 'RexBold',sans-serif;
+    font-size: 3em;
+    color: #EFE096;
+}
+
+.player h1, .status_game h1, .my_all_cards h1 {
+    font-family: 'RexBold',sans-serif;
+    font-size: 5.1em;
+    color: #EFE096;
+    text-align: right;
+}
+
+.player img, .status_game img, .my_all_cards img{
+    
+    margin-top: 8px;
+}
+
+img{
+    width: 10%;
+    cursor: grab;
+    margin-left: 8px; /* Устанавливаем одинаковые отступы */
+}
+
+img:active {
+    cursor: grabbing;
+}
+
+
+#my_cards_in_hand, #my_cards_imperia {
+    
+    border: 2px dashed transparent; /* Прозрачная рамка по умолчанию */
+    transition: border-color 0.2s ease-in-out;
+
+ }
+
+#А img {
+    margin-left: 8px; /* Устанавливаем одинаковые отступы */
+}
+
+
+.fade-out {
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Анимация изменения масштаба и прозрачности */
+    transform: scale(0); /* Уменьшаем размер карты до 0 */
+    opacity: 0; /* Делаем карту прозрачной */
+}
+
+
+
+#reset_theft{
+    justify-content: center;
+    align-items: center;
+}
+
+#reset,#theft{
+    width: 40%;
+    
+}
+
+#my_cards,#my_cards img{
+    text-align: right;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+#status_game{
+    text-align: right;
+}
+#status_game p{
+    margin-top: 10px;
+    text-align: right;
+    font-family: 'Tilda',sans-serif;
+    font-size: 2em;
+    color: #EFE096;
+    display: block;
+}
+
+
+
+.buttonRoom {
+    background-color: #00000000;
+    padding: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    width: 77px;
+    height: 69px;
+    font-size: 32px;
+    margin-right: 0.6vw;
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+}
+
+#rules{
+    background-image: url(../images/rules.svg);}
+
+#myAccount{
+    background-image: url(../images/my_accout.svg);}
+
+#exit_game{
+    background-image: url(../images/log\ out.svg);
+}
+
+
+
+/* Стили для нового поп-апа */
+.exit-confirmation-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.exit-confirmation-content {
+    background-image: url(../images/backgroundpaper.png);
+    background-position: center center;
+    background-size: cover;
+    padding: 50px;
+    padding-top: 80px;
+    border-radius: 50px;
+    text-align: center;
+    position: relative;
+    font-family: 'Tilda', sans-serif;
+    font-size: 2vw;
+    color: #748B43;
+}
+.exit-confirmation-content p{
+    margin-top: 10px;
+    
+}
+
+
+.exit-confirmation-close {
+    color: #748B43;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+#confirmExit, #cancelExit {
+    font-family: 'RexBold', sans-serif;
+    margin: 50px;
+    margin-bottom: 20px;
+    padding: 15px 50px;
+    font-size: 36px;
+    cursor: pointer;
+    border-radius: 40px;
+    background-color: #AF5B2D;
+    color: #EFE096;
+    border: 0px solid black;
+}
+
+img {
+    transition: transform 0.2s ease-in-out;
+}
+
+img:hover {
+    transform: translateY(-5px);
+    -webkit-box-shadow: 6px 11px 18px 4px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 6px 11px 18px 4px rgba(34, 60, 80, 0.2);
+    box-shadow: 6px 11px 18px 4px rgba(34, 60, 80, 0.2);
+}
+
+#reset, #theft {
+    transform:none;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+}
+
+
+
+
+  
+  /* Обертка поп-апа */
+.popup2 {
+    display: none;
+    /* display: flex;*/
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+  
+  /* Основной контент поп-апа */
+.popup-content2 {
+    display: none;
+    /* display: flex;*/
+    width: 80vw;
+    height: 80vh;
+    background-image: url(../images/backgroundpaper.png);
+    background-position: center center;
+    background-size: cover;
+    flex-direction: column; /* Вертикальное расположение элементов */
+    border-radius: 30px;
+}
+  
+  /* Контейнер для верхней картинки */
+  .header-image-container {
+    margin: auto;
+    margin-top: 2%;
+    width: 90%; /* Занимает всю ширину поп-апа */
+    overflow: hidden; /* Обрезает изображение, если оно выходит за пределы */
+  }
+  
+  .header-image {
+    width: 98%; /* Растягивается на всю ширину */
+    height: auto; /* Сохраняет пропорции */
+  }
+  
+  /* Контейнер для основного содержимого */
+  .content-container {
+    display: flex; /* Горизонтальное расположение контейнеров */
+    flex: 1; /* Занимает оставшееся пространство */
+    gap: 20px; /* Отступы между контейнерами */
+  }
+  
+  /* Общий стиль для всех контейнеров */
+  .container0 {
+    flex: 1; /* Все контейнеры занимают равную ширину */
+    display: flex;
+    flex-direction: column; /* Внутри контейнеров элементы размещаются вертикально */
+    justify-content: center; /* Выравнивание содержимого по центру вертикально */
+    align-items: stretch; /* Содержимое растягивается по ширине */
+    border: 5px solid rgba(255, 0, 0, 0);
+    padding: 20px; /* Единый отступ для всех контейнеров */
+    box-sizing: border-box; /* Учитывает padding и border в ширине */
+  }
+  
+  
+  .title2,
+  .player-name {
+    margin-bottom: 10px;
+  }
+  
+
+  .candy-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .candy-count {
+    margin-right: 10px;
+  }
+  
+  .candy-image {
+    width: 50px;
+    height: auto;
+  }
+  
+  /* Стиль второго контейнера */
+  .container2 {
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Центрируем кнопку */
+    gap: 6%; /* Отступ между элементами */
+    display: flex; /* Включаем Flexbox */
+    flex-direction: column; /* Элементы размещаются вертикально */
+    font-family: 'RexBold';
+    font-size: 200%;
+    color: #AF5B2D;
+  }
+  
+
+  /* Стиль третьего контейнера */
+  .container3 {
+    position: relative;
+  }
+
+  .container3 img:hover,.header-image-container img:hover {
+    position: relative;
+    transform: none;
+    transform:none;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+  }
+ 
+  
+  .background-image {
+    width: 100%; /* Занимает всю доступную ширину */
+    height: auto; /* Сохраняет пропорции */
+  }
+  
+
+
+/* Кнопка */
+.games-button {
+    width: 17vw;
+    height: 7vh;
+    font-family: 'RexBold', sans-serif;
+    padding: 5px;
+    margin-top: 20px;
+    background-color: #AF5B2D;
+    color: #EFE096;
+    border: none;
+    border-radius: 30px;
+    font-size: 2.5vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.games-button:hover {
+    background-color: #6d3a1f;
+}
+.gifka{
+    width: 40vw;
+    border-radius: 30px;
+    margin-top: 20px;
+}

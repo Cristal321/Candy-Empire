@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Rex';
+    src: url('RexBold.eot');
+    src: local('Rex Bold'), local('RexBold'),
+        url('RexBold.eot?#iefix') format('embedded-opentype'),
+        url('RexBold.woff2') format('woff2'),
+        url('RexBold.woff') format('woff'),
+        url('RexBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rex';
+    src: url('RexLight.eot');
+    src: local('Rex Light'), local('RexLight'),
+        url('RexLight.eot?#iefix') format('embedded-opentype'),
+        url('RexLight.woff2') format('woff2'),
+        url('RexLight.woff') format('woff'),
+        url('RexLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rex Bold Inline';
+    src: url('RexBoldInline.eot');
+    src: local('Rex Bold Inline'), local('RexBoldInline'),
+        url('RexBoldInline.eot?#iefix') format('embedded-opentype'),
+        url('RexBoldInline.woff2') format('woff2'),
+        url('RexBoldInline.woff') format('woff'),
+        url('RexBoldInline.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+

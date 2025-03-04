@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница регистрации</title>
+    <link rel="stylesheet" href="game.css">
+    <style>
+        img {
+          width: 17%;
+          cursor: grab;
+        }
+      
+        img:active {
+          cursor: grabbing;
+        }
+      
+        #my_cards_in_hand, #my_cards_imperia {
+          min-height: 100px;
+          border: 2px dashed transparent; /* Прозрачная рамка по умолчанию */
+          transition: border-color 0.2s ease-in-out;
+
+        }
+      
+    
+        #my_cards_imperia img {
+            margin-left: 8px; /* Устанавливаем одинаковые отступы */
+        }
+
+        .fade-out {
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Анимация изменения масштаба и прозрачности */
+    transform: scale(0); /* Уменьшаем размер карты до 0 */
+    opacity: 0; /* Делаем карту прозрачной */
+  }
+
+  #theft {
+    opacity: 0.2; /* Начальная прозрачность */
+    transition: opacity 0.3s ease; /* Плавное изменение */
+}
+
+#theft.active {
+    opacity: 1; /* Полная видимость */
+}
+
+
+
+/* Стили для нового поп-апа */
+.error-popup {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.error-content {
+    background-image: url(../images/backgroundpaper.png);
+    background-position: center center;
+    background-size: cover;
+    padding: 50px;
+    padding-top: 80px;
+    border-radius: 50px;
+    text-align: center;
+    position: relative;
+    font-family: 'Tilda', sans-serif;
+    font-size: 2vw;
+    color: #748B43;
+}
+.error-content p{
+    margin-top: 10px;
+    
+}
+
+
+.error-close {
+    color: #748B43;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+
+
+      </style>
+
+</head>
+<body style=" background-image: url(images/fone_candies.png);"  >
+    <div class="parent-container">
+        <div class="zona_players">
+            <div class="player player-97">
+                <h3 style="color: rgb(223, 89, 16);">Semen</h3>
+                <img src="images/cards/31.png" data-card-id="31">
+                <img src="images/cards/32.png" data-card-id="32">
+            </div>
+            <div class="player player-96">
+                <h3 style="color: rgb(239, 224, 150);">Lime</h3>
+                <img src="images/cards/15.png" data-card-id="15">
+                <img src="images/cards/24.png" data-card-id="24">
+            </div>
+            <div class="player player-94">
+                <h3 style="color: rgb(239, 224, 150);">Lavrov</h3>
+                <img src="images/cards/2.png" data-card-id="2">
+                <img src="images/cards/22.png" data-card-id="22">
+            </div>
+        </div>
+        <div class="zona_reset_theft" id="reset_theft">
+            <img id="reset" src="images/reset.png">
+            <img id="theft" src="images/theft.png" style="margin-top: 100px;">
+        </div> 
+        <div class="zona_statys_game">
+            <div class="status_game" id="status_game">
+                <h1 id="status">Игра идёт</h1>
+                <button class="buttonRoom" id="myAccount" title="Доступные комнаты"></button> 
+                <button class="buttonRoom" id="exit_game" title="Выход из игры"></button> 
+                <button class="buttonRoom" id="rules" title="Правила игры"></button>   
+                <p>Время до конца хода: <span id="timer" style="font-family: 'Courier', monospace;">00:35</span></p>
+            </div>
+            <div class="my_all_cards" id="my_cards">
+                <div style="margin-bottom: 30px;" id="my_cards_in_hand">
+                    
+                <img src="images/cards/5.png" data-card-id="5" >
+                <img src="images/cards/26.png" data-card-id="26" >
+                <img src="images/cards/7.png" data-card-id="7">
+            </div>
+                <div id="my_cards_imperia">
+                    <h3 id="myname" style="color: rgb(239, 224, 150);">testtt</h3>
+                <img src="images/cards/4.png" data-card-id="4">
+                <img src="images/cards/16.png" data-card-id="16"></div>
+            </div>
+            
+        </div>       
+    </div> 
+    
+<script>  //Карта в империю
+        document.addEventListener("DOMContentLoaded", function () {
+    const hand = document.getElementById("my_cards_in_hand"); // Контейнер карт в руке
+    const imperia = document.getElementById("my_cards_imperia"); // Контейнер карт в империи
+
+    // Делаем карты в руке перетаскиваемыми
+    document.querySelectorAll("#my_cards_in_hand img").forEach(img => {
+        img.draggable = true; // Разрешаем перетаскивание
+        img.addEventListener("dragstart", dragStart); // Добавляем обработчик начала перетаскивания
+    });
+
+    // Разрешаем сброс карт в империю
+    imperia.addEventListener("dragover", dragOver);
+    imperia.addEventListener("drop", dropToImperia);
+
+    // Функция начала перетаскивания
+    function dragStart(event) {
+        event.dataTransfer.setData("text/plain", event.target.dataset.cardId); // Сохраняем ID карты
+        event.dataTransfer.setData("element", event.target.outerHTML); // Сохраняем HTML карты
+    }
+
+    // Разрешаем перетаскивание (иначе `drop` не сработает)
+    function dragOver(event) {
+        event.preventDefault();
+    }
+
+    // Функция обработки сброса карты в империю
+    function dropToImperia(event) {
+        event.preventDefault();
+        const cardId = event.dataTransfer.getData("text/plain"); // Получаем ID карты
+        const existingCard = document.querySelector(`#my_cards_in_hand img[data-card-id="${cardId}"]`); // Ищем карту в руке
+
+        if (existingCard) {
+            existingCard.classList.add("fade-out"); // Анимация исчезновения
+            setTimeout(() => existingCard.remove(), 500); // Удаляем карту из руки после анимации
+            imperia.insertAdjacentHTML("beforeend", event.dataTransfer.getData("element")); // Добавляем карту в империю
+            updateCardMargins(); // Обновляем отступы
+        }
+    }
+
+    // Обновляем отступы карт в империи
+    function updateCardMargins() {
+        const cards = document.querySelectorAll("#my_cards_imperia img");
+        cards.forEach((card, index) => {
+            card.style.marginLeft = index === 0 ? "0px" : "4px";
+            card.style.marginRight = index === 0 ? "0px" : "4px";
+        });
+    }
+});
+
+</script>
+
+
+<script>  //Сброс карты
+    document.addEventListener("DOMContentLoaded", function () {
+    const reset = document.getElementById("reset"); // Контейнер для сброса карт
+
+    // Разрешаем сброс карт в область сброса
+    reset.addEventListener("dragover", dragOver);
+    reset.addEventListener("drop", dropToReset);
+
+    // Разрешаем перетаскивание (иначе `drop` не сработает)
+    function dragOver(event) {
+        event.preventDefault();
+    }
+
+    // Функция обработки сброса карты в зону сброса
+    function dropToReset(event) {
+        event.preventDefault();
+        const cardId = event.dataTransfer.getData("text/plain"); // Получаем ID карты
+        const existingCard = document.querySelector(`#my_cards_in_hand img[data-card-id="${cardId}"]`); // Ищем карту в руке
+
+        if (existingCard) {
+            existingCard.classList.add("fade-out"); // Анимация исчезновения
+            setTimeout(() => existingCard.remove(), 500); // Удаляем карту после анимации
+        }
+    }
+});
+
+</script>
+
+
+<script> //Конфетный вор
+    document.addEventListener("DOMContentLoaded", function () {
+    const theft = document.getElementById("theft"); // Элемент зоны "украсть"
+    const imperia = document.getElementById("my_cards_imperia"); // Контейнер моей империи
+
+    // Делаем элемент `theft` полупрозрачным по умолчанию
+    theft.style.opacity = "0.3";
+
+    // Устанавливаем обработчики событий для всех карт в руке
+    document.querySelectorAll("#my_cards_in_hand img").forEach(img => {
+        img.draggable = true; // Делаем карту перетаскиваемой
+        img.addEventListener("dragstart", handleDragStart); // Начало перетаскивания
+        img.addEventListener("dragend", handleDragEnd); // Конец перетаскивания
+    });
+
+    // Разрешаем сброс карт в зону "украсть"
+    theft.addEventListener("dragover", dragOver);
+    theft.addEventListener("drop", dropToTheft);
+
+    // Разрешаем перетаскивание карт из чужих империй в свою
+    document.querySelectorAll(".zona_players img").forEach(img => {
+        img.draggable = true;
+        img.addEventListener("dragstart", handleDragStart);
+    });
+
+    imperia.addEventListener("dragover", dragOver);
+    imperia.addEventListener("drop", dropFromPlayers);
+
+    // Функция обработки начала перетаскивания карты
+    function handleDragStart(event) {
+        const cardId = event.target.dataset.cardId;
+        event.dataTransfer.setData("text/plain", cardId); // Сохраняем ID карты
+        event.dataTransfer.setData("element", event.target.outerHTML); // Сохраняем HTML карты
+
+        // Если карта — конфетный вор, делаем зону "украсть" видимой
+        if (isCandyThief(cardId)) {
+            theft.style.opacity = "1";
+        }
+    }
+
+    // Функция обработки завершения перетаскивания
+    function handleDragEnd() {
+        theft.style.opacity = "0.3"; // После окончания перетаскивания возвращаем прозрачность
+    }
+
+    // Функция разрешает сброс карты в контейнер
+    function dragOver(event) {
+        event.preventDefault();
+    }
+
+    // Функция обработки сброса карты в зону "украсть"
+    function dropToTheft(event) {
+        event.preventDefault();
+
+        const cardId = event.dataTransfer.getData("text/plain"); // Получаем ID карты
+        const existingCard = document.querySelector(`#my_cards_in_hand img[data-card-id="${cardId}"]`);
+
+        if (existingCard && isCandyThief(cardId)) {
+            existingCard.classList.add("fade-out"); // Анимация исчезновения
+            setTimeout(() => existingCard.remove(), 500); // Удаляем карту через 0.5 секунды
+
+            // Активируем выбор карты из чужой империи
+            promptSelectCardFromOthers();
+        }
+    }
+
+
+
+    // Функция обработки кражи карты из чужой империи
+    function dropFromPlayers(event) {
+        event.preventDefault();
+
+        const cardId = event.dataTransfer.getData("text/plain"); // Получаем ID карты
+        const selectedCard = document.querySelector(`.zona_players img[data-card-id="${cardId}"]`); // Ищем карту в чужой империи
+
+        if (selectedCard) {
+            imperia.insertAdjacentHTML("beforeend", selectedCard.outerHTML); // Добавляем карту в свою империю
+            selectedCard.remove(); // Удаляем карту из чужой империи
+            updateCardMargins(); // Обновляем отступы карт в империи
+        }
+    }
+
+    // Проверка, является ли карта конфетным вором
+    function isCandyThief(cardId) {
+        return ['6', '7', '8', '9', '10'].includes(cardId);
+    }
+
+    // Функция выбора карты из чужой империи
+    function promptSelectCardFromOthers() {
+        const players = document.querySelectorAll(".zona_players .player img");
+
+        players.forEach(player => {
+            player.addEventListener("dragstart", (event) => {
+                event.dataTransfer.setData("text/plain", event.target.dataset.cardId);
+                event.dataTransfer.setData("element", event.target.outerHTML);
+            });
+
+            player.addEventListener("dragover", dragOver);
+            player.addEventListener("drop", handleCardSelection);
+        });
+    }
+
+    // Функция обработки выбора карты из чужой империи
+    function handleCardSelection(event) {
+        event.preventDefault();
+
+        const cardId = event.dataTransfer.getData("text/plain");
+        const selectedCard = document.querySelector(`.zona_players img[data-card-id="${cardId}"]`);
+
+        if (selectedCard) {
+            imperia.insertAdjacentHTML("beforeend", selectedCard.outerHTML);
+            selectedCard.remove();
+            updateCardMargins();
+        }
+    }
+
+    // Функция обновления отступов у карт в империи
+    function updateCardMargins() {
+        document.querySelectorAll("#my_cards_imperia img").forEach((card, index) => {
+            card.style.marginLeft = index === 0 ? "0px" : "4px";
+            card.style.marginRight = index === 0 ? "0px" : "4px";
+        });
+    }
+});
+
+
+</script>
+
+
+<div class="error-popup" id="ErrorPopup">
+    <div class="error-content">
+        <span class="error-close" id="closeErrortPopup">&times;</span>
+        <p>пароль неверный </p>
+       
+    </div>
+</div>
+    
+    
+      
+</body>
+</html>
+
+
+
+
+

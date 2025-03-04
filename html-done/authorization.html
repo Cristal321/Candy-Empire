@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница регистрации</title>
+    <link rel="stylesheet" href="../css/register.css">
+
+</head>
+<body>
+    <div class="parent-container">
+        <div class="cat">
+            <img src="../images/cat.png">
+        </div>
+        <div class="child-container">
+            <h2>Вход</h2>
+            <form action="#" method="POST">
+                <!-- Поле логин с placeholder -->
+                <input type="text" id="login" name="login" placeholder="логин" required><br><br>
+                
+                <!-- Поле пароль с placeholder -->
+                <input type="password" id="password" name="password" placeholder="пароль" required><br><br>
+                
+                <!-- Кнопка продолжить -->
+                <button type="submit">Продолжить</button>
+
+                <p> У вас ещё нет аккаунта? <br><b>Присоединяйтесь </b> к нам!</p>
+            </form>
+        </div>
+
+        
+    </div>
+
+    <!-- Сообщение для маленьких экранов -->
+    <div class="message-small-screen">
+        Ваш экран слишком маленький
+    </div>
+
+    <?php 
+			include './rules.tpl'; 
+			include './alertDialog.tpl' ;
+	?>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Комнаты</title>
+    <link rel="stylesheet" href="../css/rooms.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="rooms-container">
+          <div class="header">
+            <span class="title">Доступные комнаты</span>
+            <button class="buttonRoom" id="logout" title="Выход из аккаунта"></button>
+            <button class="buttonRoom" id="rules" title="Правила игры"></button>
+            
+          </div>
+      
+          <div class="rooms-list">
+             <div class="room" style="background-image: none;">
+               <div class="room-info" id="newRoom">
+                <form action="#" method="POST" id="createRoom">
+                  <input type="number" id="colvo" name="players" placeholder="Введите количество игроков (от 2 до 5)" required>
+                  
+                  <input type="number" id="time" name="time" placeholder="Введите время для хода (в секундах)" required>
+                  
+                  <button type="submit" id="buttonCreate">создать комнату</button>
+                </form>
+               </div>
+             </div>
+            
+             <div class="room">
+                 <div class="room-info">
+                     <span class="numderRooms">№1</span>
+                     <span class="numderPlayers">4 игрока</span>
+                     <span class="numderTime">30 секунд</span>
+                     <button class="join-button-CONTINUE">вернуться</button>
+                 </div>
+             </div>
+             <div class="room">
+                <div class="room-info">
+                  <span class="numderRooms">№2</span>
+                  <span class="numderPlayers">4 игрока</span>
+                  <span class="numderTime">30 секунд</span>
+                  <button class="join-button-START"> войти </button>
+                </div>
+              </div>
+             
+              <div class="room">
+                  <div class="room-info">
+                      <span class="numderRooms">№3</span>
+                      <span class="numderPlayers">4 игрока</span>
+                      <span class="numderTime">30 секунд</span>
+                      <button class="join-button-CONTINUE">вернуться</button>
+                  </div>
+              </div>
+              <div class="room">
+                <div class="room-info">
+                  <span class="numderRooms">№4</span>
+                  <span class="numderPlayers">4 игрока</span>
+                  <span class="numderTime">30 секунд</span>
+                  <button class="join-button-START"> войти </button>
+                </div>
+              </div>
+              <div class="room">
+                <div class="room-info">
+                  <span class="numderRooms">№5</span>
+                  <span class="numderPlayers">4 игрока</span>
+                  <span class="numderTime">30 секунд</span>
+                  <button class="join-button-START"> войти </button>
+                </div>
+              </div>
+              <div class="room">
+                <div class="room-info">
+                  <span class="numderRooms">№6</span>
+                  <span class="numderPlayers">4 игрока</span>
+                  <span class="numderTime">30 секунд</span>
+                  <button class="join-button-START"> войти </button>
+                </div>
+              </div>
+              <div class="room">
+                <div class="room-info">
+                  <span class="numderRooms">№7</span>
+                  <span class="numderPlayers">4 игрока</span>
+                  <span class="numderTime">30 секунд</span>
+                  <button class="join-button-START"> войти </button>
+                </div>
+              </div>
+              <div class="room">
+                <div class="room-info">
+                  <span class="numderRooms">№8</span>
+                  <span class="numderPlayers">4 игрока</span>
+                  <span class="numderTime">30 секунд</span>
+                  <button class="join-button-START"> войти </button>
+                </div>
+              </div>
+              
+             
+              <div class="room">
+                  <div class="room-info">
+                      <span class="numderRooms">№9</span>
+                      <span class="numderPlayers">4 игрока</span>
+                      <span class="numderTime">30 секунд</span>
+                      <button class="join-button-CONTINUE">вернуться</button>
+                  </div>
+              </div>
+            
+              
+            <!-- Добавляй дополнительные комнаты по необходимости -->
+           </div>
+        </div>
+      </div>
+    
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup">&times;</span>
+            <h2 >Описание и цель игры</h2>
+            <p >Действие игры происходит во вселенной «Конфетные истории». В этом мире конфеты больше не производятся, они очень ценные, и осталось их немного, а заполучить себе несколько - мечта каждого.
+
+              В игре побеждает тот, кто заработает больше всех конфет. Конфеты зарабатываются в результате выкладывания на стол карточек персонажей.</p>
+            
+            <h2 style="margin-top: 40px;">Подготовка к игре</h2>
+            <p>В начале игры вам выдётся 3  карты взакрытую. Освободите место перед собой, там будет ваша конфетная империя. </p>
+            
+            <h2 style="margin-top: 40px;">Ход игры</h2>
+            <p>Активный игрок подсвечивается карсным цветом. В свой ход, он должен сделать одно из следующих действий:
+
+             <br> - разыграть карточку в империю ( перетащить карту из руки под своё имя)
+             <br> - разыграть карточку в сброс ( перетащить карту в центр стола на надпись «сброс»)
+             <br> - разыграть карту Конфетный вор ( перетащить карту в центр стола на надпись «украсть») 
+            </p>
+            
+            <h2 style="margin-top: 40px;">Конец игры</h2>
+            <p>Игра заканчивается в тот момент, когда у игроков не остаётся на руках ни одной карточки. После этого начинается подсчёт гарантированных конфет и бонусных.</p>
+            
+            <h2 style="margin-top: 40px;">Какие ещё конфеты?</h2>
+            <p>В игре существуют гарантированные конфеты  и бонусные. Количество гаратированных конфет указано на каждой из карточек большой цифрой. Бонусные же конфеты выглядят, как половинки. Они начисляются вам только при условии, что вы собрали пару карт одинакового цвета, но разного номинала, вам начислются бонусные конфетки.</p>
+            
+
+            <img src="../images/Group 316.svg" style="width: 40vh;">
+            <br>
+            <img src="../images/noncombination.svg" style="width: 40vh; margin-top: 50px;">
+            <img src="../images/combination.svg" style="width: 40vh; margin-left: 20%;">
+        </div>
+    </div>
+       <!-- Сообщение для маленьких экранов -->
+    <div class="message-small-screen">
+        Ваш экран слишком маленький
+    </div>
+
+    <script src="../scripts/popupRooms.js"></script>
+      
+      
+</body>
+</html>

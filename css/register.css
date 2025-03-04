@@ -1,0 +1,237 @@
+/* Загрузка шрифта Rex Bold */
+@font-face {
+    font-family: 'RexBold'; /* Название шрифта, которое будет использоваться в CSS */
+    src: url('../fonts/RexBold.woff2') format('woff2'), /* Поддержка современных браузеров */
+         url('../fonts/RexBold.woff') format('woff');   /* Поддержка старых браузеров */
+    font-weight: normal; /* Вес шрифта (normal = 400) */
+    font-style: normal;  /* Стиль шрифта (normal = обычный) */
+}
+
+@font-face {
+    font-family: 'Tilda'; /* Название шрифта, которое будет использоваться в CSS */
+    src: url('../fonts/TildaSans-Regular.woff2') format('woff2'), /* Поддержка современных браузеров */
+         url('../fonts/TildaSans-Regular.woff') format('woff');   /* Поддержка старых браузеров */
+    font-weight: normal; /* Вес шрифта (normal = 400) */
+    font-style: normal;  /* Стиль шрифта (normal = обычный) */
+}
+
+/* Сброс стандартных стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Отключаем прокрутку страницы */
+    background-image: url(../images/fone_candies.png);
+    background-size: cover;
+    background-repeat: repeat;
+}
+
+/* Родительский контейнер */
+.parent-container {
+    width: 90vw; /* Занимает всю ширину viewport */
+    height: 90vh; /* Занимает всю высоту viewport */
+    margin: auto;
+    background-color: rgba(244, 244, 244, 0);
+    position: fixed; /* Фиксированное позиционирование */
+    top: 50%; /* Центрирование по вертикали */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translate(-50%, -50%); /* Точное центрирование */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cat img{
+    width: 18vw;
+    margin-left: 15vw;
+    box-sizing: border-box;
+}
+
+/* Дочерний контейнер */
+.child-container {
+    width: 28vw;
+    height: 600px;
+    background-image: url(../images/paper.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 40px;
+    text-align: center;
+    border-radius: 30px;
+    margin: auto;
+}
+
+/* Заголовок */
+.child-container h2 {
+    font-size: 2.8vw;
+    margin-bottom: 30px;
+    color: #748B43;
+    font-family: 'RexBold', sans-serif;
+    margin-bottom: 60px;
+}
+
+/* Форма */
+.child-container form {
+    display: flex;
+    flex-direction: column;
+    position: fixed; /* Фиксированное позиционирование */
+
+}
+
+/* Поля ввода */
+.child-container input[type="text"],
+.child-container input[type="password"] {
+    appearance: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    width: 23vw;
+    height: 2vw;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2.5px solid #748B43;
+    font-size: 24px;
+    background-color: #efe09600;
+    color: #748B43;
+    font-family: 'Tilda', sans-serif;
+}
+
+
+
+
+.child-container input[type="text"]:focus,
+.child-container input[type="password"]:focus {
+   color:#748B43; 
+   font-family: 'Tilda', sans-serif;
+   border-bottom: 2.5px solid #AF5B2D;
+}
+
+
+
+
+
+.sss{
+    text-decoration: none;
+    color: #748B43;
+}
+
+::placeholder{
+    font-family: 'Tilda', sans-serif;
+    color: #748b43aa;
+    font-weight: bold;
+    font-size: 1.4vw;
+}
+
+/* Кнопка */
+.child-container button {
+    height: 55px;
+    width: 212px;
+    font-family: 'RexBold', sans-serif;
+    padding: 5px;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #AF5B2D;
+    color: #EFE096;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.7vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.child-container button:hover {
+    background-color: #6d3a1f;
+}
+
+.child-container p{
+    margin-top: 40px;
+    color: #748B43;
+    font-family: 'Tilda', sans-serif;
+    font-size: 1.1vw;
+}
+
+
+/* Сообщение для маленьких экранов */
+.message-small-screen {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #EFE096;
+    font-family: 'RexBold', sans-serif;
+    background-color: #AF5B2D;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.podpis{
+    text-decoration: none;
+    color: #748B43;
+    font-family: 'Tilda', sans-serif;
+    font-size: 0.1em;
+    margin-left: 0;
+}
+
+/* Затемнение фона */
+.error-popup {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Затемнение */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Само окно ошибки */
+.error-content {
+    position: relative; /* Теперь крестик будет позиционироваться относительно окна */
+    background-image: url(../images/backgroundpaper.png);
+    background-position: center center;
+    background-size: cover;
+    padding: 50px;
+    border-radius: 50px;
+    text-align: center;
+    font-family: 'Tilda', sans-serif;
+    font-size: 2vw;
+    color: #748B43;
+    width: 40vw;
+    max-width: 500px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+}
+.error-content p{
+    margin-top: 10px;
+    
+}
+
+
+.error-close {
+    color: #748B43;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+/* Медиа-запрос для экранов меньше 1100px */
+@media (max-width: 1024px) {
+    .parent-container,
+    .child-container {
+        display: none; /* Скрываем родительский и дочерний контейнеры */
+    }
+
+    .message-small-screen {
+        display: block; /* Показываем сообщение */
+    }
+}
